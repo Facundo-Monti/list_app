@@ -1,0 +1,54 @@
+erDiagram
+    users ||--o{ lists : creates
+    users ||--o{ list_permissions : has
+    lists ||--o{ list_items : contains
+    lists ||--o{ list_permissions : has
+    
+    users {
+        uuid id PK
+        varchar email UK
+        varchar password_hash
+        varchar first_name
+        varchar last_name
+        timestamp created_at
+        timestamp updated_at
+        timestamp last_login
+        boolean is_active
+        boolean is_verified
+    }
+    
+    lists {
+        uuid id PK
+        uuid owner_id FK
+        varchar name
+        text description
+        enum visibility "public, shared, private"
+        jsonb metadata
+        timestamp created_at
+        timestamp updated_at
+        boolean is_archived
+    }
+    
+    list_items {
+        uuid id PK
+        uuid list_id FK
+        varchar title
+        text description
+        boolean is_completed
+        timestamp completed_at
+        int position
+        enum priority "low, medium, high"
+        date due_date
+        jsonb metadata
+        timestamp created_at
+        timestamp updated_at
+    }
+    
+    list_permissions {
+        uuid id PK
+        uuid list_id FK
+        uuid user_id FK
+        enum permission_level "view, edit, admin"
+        timestamp granted_at
+        uuid granted_by FK
+    }

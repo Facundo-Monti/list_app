@@ -1,0 +1,69 @@
+graph TB
+    subgraph "Cliente"
+        A[Usuario/Browser] --> B[Angular App]
+        B --> C[HTTP Client]
+        C --> D[Interceptores<br/>Auth Token, Error Handling]
+    end
+
+    subgraph "Reverse Proxy/Load Balancer"
+        D --> E[Nginx<br/>Puerto 80/443]
+        E --> F{Routing}
+    end
+
+    subgraph "Backend - NestJS"
+        F -->|/api| G[Guards de Autenticación<br/>JWT Validation]
+        G --> H[Controllers]
+        H --> I[DTOs de Validación<br/>class-validator]
+        I --> J[Services - Lógica de Negocio]
+        J --> K[Repository Pattern<br/>TypeORM]
+        
+        subgraph "Módulos NestJS"
+            H1[Auth Module]
+            H2[Lists Module]
+            H3[Items Module]
+            H4[Users Module]
+            H5[Shared Module]
+        end
+    end
+
+    subgraph "Capa de Datos"
+        K --> L[(PostgreSQL<br/>Puerto 5432)]
+        L --> M[Tablas:<br/>users, lists,<br/>list_items,<br/>list_permissions]
+    end
+
+    subgraph "Seguridad & Auth"
+        N[JWT Strategy] --> G
+        O[Passport.js] --> N
+        P[bcrypt] --> J
+    end
+
+    subgraph "Cache & Performance"
+        Q[Redis<br/>Sessions/Cache] -.-> J
+    end
+
+    subgraph "Monitoreo & Logs"
+        R[Sentry<br/>Error Tracking] -.-> B
+        R -.-> J
+        S[Prometheus<br/>Métricas] -.-> J
+        T[Grafana<br/>Visualización] -.-> S
+        U[Winston Logger] -.-> J
+    end
+
+    subgraph "DevOps"
+        V[Docker Compose] --> W[Container: Angular]
+        V --> X[Container: NestJS]
+        V --> Y[Container: PostgreSQL]
+        V --> Z[Container: Redis]
+        V --> AA[Container: Nginx]
+        
+        AB[GitHub Actions] --> AC[Build & Test]
+        AC --> AD[Docker Build]
+        AD --> AE[Deploy to Registry]
+    end
+
+    style A fill:#e1f5ff
+    style L fill:#ffecb3
+    style G fill:#ffcdd2
+    style J fill:#c8e6c9
+    style R fill:#f8bbd0
+    style S fill:#f8bbd0
