@@ -1,12 +1,12 @@
 # Lista App
 
-Full-stack task list application with sharing capabilities.
+Full-stack list application with sharing capabilities.
 
 ## Tech Stack
 
-- **Frontend:** Angular 17+ with TypeScript
-- **Backend:** NestJS with TypeScript
-- **Database:** PostgreSQL 16
+- **Frontend:** Angular 20 with TypeScript 5.8+
+- **Backend:** NestJS 11 with TypeScript 5.8+
+- **Database:** PostgreSQL 18
 - **Cache:** Redis
 - **DevOps:** Docker, GitHub Actions, Nginx
 - **Monitoring:** Sentry, Prometheus, Grafana
@@ -32,9 +32,10 @@ lista-app/
 
 ## Prerequisites
 
-- Node.js 20+
+- Node.js 20 LTS
+- npm 10+
 - Docker & Docker Compose
-- PostgreSQL 16 (if running locally)
+- PostgreSQL 18 (if running locally)
 - Git
 
 ## Quick Start
@@ -42,7 +43,7 @@ lista-app/
 ### Development with Docker
 ```bash
 # Clone the repository
-git clone https://github.com/Montusa/list_app.git
+git clone https://github.com/Facundo-Monti/list_app.git
 cd lista-app
 
 # Copy environment files
@@ -104,4 +105,4 @@ npm run e2e
 
 ## Contact
 
-Project Link: [https://github.com/Montusa/list_app](https://github.com/Montusa/list_app)
+Project Link: [https://github.com/Facundo-Monti/list_app](https://github.com/Facundo-Monti/list_app)
